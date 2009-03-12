@@ -1,0 +1,16 @@
+.cvsignore
+Changes
+lib/Acme/Geo/Whitwell/Name.pm
+Makefile.PL
+MANIFEST
+README
+t/00-load.t
+t/boilerplate.t
+t/build.t
+t/coord_for.t
+t/exceptions.t
+t/pod-coverage.t
+t/pod.t
+t/two_decimal.t
+t/whitwell.t
+META.yml                                 Module meta-data (added by MakeMaker)
