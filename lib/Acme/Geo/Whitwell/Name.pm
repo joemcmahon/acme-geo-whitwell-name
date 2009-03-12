@@ -5,8 +5,8 @@ use warnings;
 use Carp qw(croak);
 
 use Exporter;
-our @ISA       = qw(Exporter);
-our @EXPORT_OK = qw(to_whitwell from_whitwell);
+@Acme::Geo::Whitwell::Name::ISA       = qw(Exporter);
+@Acme::Geo::Whitwell::Name::EXPORT_OK = qw(to_whitwell from_whitwell);
 
 use Scalar::Util qw(looks_like_number);
 
@@ -16,11 +16,11 @@ Acme::Geo::Whitwell::Name - Steadman Whitwell's "rational geographic nomenclatur
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 

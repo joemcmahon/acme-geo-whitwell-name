@@ -1,5 +1,9 @@
 Revision history for Acme-Geo-Whitwell-Name
 
+0.02    Sun Jan  6 16:03:40 PST 2008
+	Change 'our' to fully-qualified name
+	Add Test::Exception prereq (thank you CPAN Testers)
+
 0.01	Thu Jan  3 16:24:54 PST 2008
 	Initial release (and my first Acme module).
 
