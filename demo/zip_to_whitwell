@@ -1,3 +1,4 @@
+#!/usr/bin/env perl
 $|++;
 use WWW::Mechanize;
 use Acme::Geo::Whitwell::Name qw(to_whitwell);
