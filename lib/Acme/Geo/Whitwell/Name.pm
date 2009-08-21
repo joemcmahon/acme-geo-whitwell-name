@@ -16,11 +16,11 @@ Acme::Geo::Whitwell::Name - Steadman Whitwell's "rational geographic nomenclatur
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
@@ -82,7 +82,7 @@ choose the one that seems "better". In the cases of places like McMurdo Base
 ("Eeseepu Bymeem" or "Neeveil Amyny"), I'm not sure there I<is> a "better".
 
 However, solely for the purposes of amusement, it can be interesting to find
-out what a given location would have been called in tha alternate universe
+out what a given location would have been called in the alternate universe
 where Whitwell's scheme caught on.
 
 It would be lovely to use this module to change all the place names on 

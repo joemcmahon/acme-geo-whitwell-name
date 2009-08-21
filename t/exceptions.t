@@ -2,6 +2,9 @@ use Test::More tests=>10;
 use Test::Exception;
 use Acme::Geo::Whitwell::Name;
 
+eval "use Test::Exception";
+plan skip_all => "Test::Exception required to check expected failures" if $@;
+
 dies_ok { Acme::Geo::Whitwell::Name::_vowel_build("BLORP") } 
         "unparseable coordinate";
 like $@, qr/'BLORP' does not look like a proper coordinate/,
