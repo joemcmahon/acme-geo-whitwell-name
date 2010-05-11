@@ -1,9 +1,8 @@
 use Test::More;
 
 eval "use Test::Exception";
-my $skip_exceptions = $@;
+plan skip_all => "Test::Exception not installed" if $@;
 
-use Test::Exception;
 use Acme::Geo::Whitwell::Name;
 
 my %tests = (

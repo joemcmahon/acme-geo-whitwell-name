@@ -1,9 +1,10 @@
-use Test::More tests=>10;
-use Test::Exception;
+use Test::More;
 use Acme::Geo::Whitwell::Name;
 
 eval "use Test::Exception";
 plan skip_all => "Test::Exception required to check expected failures" if $@;
+
+plan tests=>10;
 
 dies_ok { Acme::Geo::Whitwell::Name::_vowel_build("BLORP") } 
         "unparseable coordinate";
