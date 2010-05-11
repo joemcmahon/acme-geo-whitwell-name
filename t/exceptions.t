@@ -1,32 +1,24 @@
 use Test::More;
 use Acme::Geo::Whitwell::Name;
 
-eval "use Test::Exception";
-plan skip_all => "Test::Exception required to check expected failures" if $@;
+plan tests=>5;
 
-plan tests=>10;
-
-dies_ok { Acme::Geo::Whitwell::Name::_vowel_build("BLORP") } 
-        "unparseable coordinate";
+eval { Acme::Geo::Whitwell::Name::_vowel_build("BLORP") };
 like $@, qr/'BLORP' does not look like a proper coordinate/,
          "right message";
 
-dies_ok { Acme::Geo::Whitwell::Name::_vowel_build("35neSw") }
-        "conflicting indicators";
+eval { Acme::Geo::Whitwell::Name::_vowel_build("35neSw") };
 like $@, qr/Multiple conflicting sign indicators detected in '35neSw'/,
          "right message";
 
-dies_ok { Acme::Geo::Whitwell::Name::_vowel_build("35ne") }
-        "multiple positive indicators";
+eval { Acme::Geo::Whitwell::Name::_vowel_build("35ne") };
 like $@, qr/Multiple sign indicators detected in '35ne'/,
          "right message";
 
-dies_ok { Acme::Geo::Whitwell::Name::_vowel_build("35SW") }
-        "multiple negative indicators";
+eval { Acme::Geo::Whitwell::Name::_vowel_build("35SW") };
 like $@, qr/Multiple sign indicators detected in '35SW'/,
          "right message";
 
-dies_ok { Acme::Geo::Whitwell::Name::_vowel_build("-35N") }
-         "sign and indicator don't match";
+eval { Acme::Geo::Whitwell::Name::_vowel_build("-35N") };
 like $@, qr/Multiple conflicting sign indicators detected in '-35N'/,
          "right message";

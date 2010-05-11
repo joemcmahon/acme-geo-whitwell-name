@@ -1,7 +1,7 @@
 Revision history for Acme-Geo-Whitwell-Name
 
 0.04	Tue May 11 14:16:05 PDT 2010
-	Added Test::Exception prereq
+	Removed need for Test::Exception prereq
 	Fixed tests to skip if no Test::Exception
 	Fix spelling of Whitwell's first name (it's "Stedman", not "Steadman")
 

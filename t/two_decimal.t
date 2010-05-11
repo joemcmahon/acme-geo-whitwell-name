@@ -1,15 +1,12 @@
 use Test::More;
-eval "use Test::Exception";
-plan skip_all => 'Test::Exception not installed' if $@;
-
 use Acme::Geo::Whitwell::Name;
 
 plan tests => 72;
 # Numbers < -180 or > 180 die.
-dies_ok { Acme::Geo::Whitwell::Name::_two_decimal(-500) }
-        "< -180 dies";
-dies_ok { Acme::Geo::Whitwell::Name::_two_decimal(500) }
-        ">180 dies";
+eval { Acme::Geo::Whitwell::Name::_two_decimal(-500) };
+ok $@, "< -180 dies";
+eval { Acme::Geo::Whitwell::Name::_two_decimal(500) };
+ok $@, "> 180 dies";
 
 my $two_digit;
 

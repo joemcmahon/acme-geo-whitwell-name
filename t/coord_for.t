@@ -1,8 +1,5 @@
 use Test::More;
 
-eval "use Test::Exception";
-plan skip_all => "Test::Exception not installed" if $@;
-
 use Acme::Geo::Whitwell::Name;
 
 my %tests = (
@@ -24,14 +21,8 @@ foreach (keys %tests) {
 }
 
 # Exceptions: bad characters and bad sequencing.
-SKIP: {
-  skip "Test::Exception not installed", 1 if $skip_exceptions;
-  dies_ok {  Acme::Geo::Whitwell::Name::_coord_for("blargh") }
-        'bad string dies';
-}
+my($value, $sign) = eval {Acme::Geo::Whitwell::Name::_coord_for("blargh") };
+ok $@, 'bad string dies';
 
-SKIP: {
-  skip "Test::Exception not installed", 1 if $skip_exceptions;
-  dies_ok { Acme::Geo::Whitwell::Name::_coord_for("eeeeeeee") }
-        'badly-formed string dies';
-}
+($value, $sign) = eval { Acme::Geo::Whitwell::Name::_coord_for("eeeeeeee") };
+ok $@,'badly-formed string dies';
