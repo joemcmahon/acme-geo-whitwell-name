@@ -1,9 +1,9 @@
 Acme-Geo-Whitwell-Name
 
 This module allows you to convert latitudes and longitudes to Steadman
-Whitwell's "rational geographic nomeclature": unique place names that 
-are generated directly from the latitude and longitude.[1] Whitwell 
-despaired of the many duplicate Springfields and Washingtons in the 
+Whitwell's "rational geographic nomeclature": unique place names that
+are generated directly from the latitude and longitude.[1] Whitwell
+despaired of the many duplicate Springfields and Washingtons in the
 United States, and proposed this nomenclature to prevent duplicate
 placenames.
 
@@ -13,8 +13,17 @@ longitude[2], this allows a grid of approximately 800 feet by 1300 feet
 to be overlaid on the globe. Most towns and villages are at least this big,
 so 2-decimal precision is sufficient to give each one a unique name.
 
+The latitude and longitude are converted (using a scheme devised by Whitwell)
+into pronounceable words - more or less. The names have internal hints to
+tell the reader (traveller?) in which hemisphere the places are located: if
+the latitude word contains an "S", the latitude is a south latitude; if the
+longitude word contains a "V", the longitude is a west longitude. Absence
+of either implies the opposite: north latitude, or east longitude[3].
+
 Allowing for the utter lunacy of the whole scheme, it has a certain
-obsessive charm.
+obsessive charm. (It is interesting to note that this actually is
+addressed by postal codes nowadays; having people add an extra thing to a
+name is easier to do than have them change every place name.)
 
 This module is at its core a simple text transformation, so it requires very
 little beyond core Perl functions. It does not at present do geocoding, so
@@ -22,7 +31,8 @@ you will have to determine the latitude and longitude yourself.
 
 [1] New Harmony Gazette, Vol. I, pp. 226-227.
 [2] http://www.colorado.edu/geography/gcraft/warmup/aquifer/html/distance.html
-
+[3] The New Harmony Communities, George Browning Lockwood, The Chronicle Company, 1902.
+    (Available at https://archive.org/details/newharmonycommu00inlock.)L
 INSTALLATION
 
 To install this module, run the following commands:

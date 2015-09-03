@@ -15,8 +15,8 @@ plan tests => (int keys %expected) * 2;
 foreach my $arg (keys %expected) {
    my @expected = @{ $expected{$arg} };
 
-   is Acme::Geo::Whitwell::Name::_vowel_build($arg), $expected[0],
-       "vowel substitution $expected[0] right for $arg"; 
-   is Acme::Geo::Whitwell::Name::_consonant_build($arg), $expected[1],
-       "consonant substitution $expected[1] right for $arg"; 
+   is Acme::Geo::Whitwell::Name::_latitude_build($arg), $expected[0],
+       "latitude substitution $expected[0] right for $arg"; 
+   is Acme::Geo::Whitwell::Name::_longitude_build($arg), $expected[1],
+       "longitude substitution $expected[1] right for $arg"; 
 }

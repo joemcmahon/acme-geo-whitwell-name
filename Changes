@@ -1,5 +1,10 @@
 Revision history for Acme-Geo-Whitwell-Name
 
+0.05    Thu Sep  3 12:59:34 PDT 2015
+    Found a definitive reference on sign characters; algorithm corrected
+    Now only generate the "correct" version of the name
+    Updated tests and docs to match
+
 0.04	Tue May 11 14:16:05 PDT 2010
 	Removed need for Test::Exception prereq
 	Fixed tests to skip if no Test::Exception

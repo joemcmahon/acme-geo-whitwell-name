@@ -16,11 +16,11 @@ Acme::Geo::Whitwell::Name - Stedman Whitwell's "rational geographic nomenclature
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 SYNOPSIS
 
@@ -75,13 +75,12 @@ The generated names are guaranteed to have alternating consonants and vowels,
 and should be pronounceable (though most likely bizarre). I have not been able
 to locate the original documentation of the scheme, so I am unable to determine
 why some example names are built in "reverse": with the first letter for the
-latitude selected from the longitude table, and vice versa for the longitude. I
-can only guess that the alternate construction was deemed more pronounceable or
-"interesting". Since this is the case, I generate both alternatives so you can
-choose the one that seems "better". In the cases of places like McMurdo Base
-("Eeseepu Bymeem" or "Neeveil Amyny"), I'm not sure there I<is> a "better".
+latitude selected from the longitude table, and vice versa for the longitude.
+After reading "The New Harmony Communities", I believe that the sources which
+did so were in error. I have updated the algorithm to return only a single
+"canonical" name.
 
-However, solely for the purposes of amusement, it can be interesting to find
+Solely for the purposes of amusement, it can be interesting to find
 out what a given location would have been called in the alternate universe
 where Whitwell's scheme caught on.
 
@@ -95,21 +94,21 @@ online maps, wouldn't it?
 =item * I<The Angel and the Serpent: The Story of New Harmony>, William E.
 Wilson, Indiana University Press, 1984, p. 154
 =item * Search books.google.com for '"new harmony gazette" whitwell'
-=item * http://www.kirchersociety.org/blog/2007/05/15/whitwells-system-for-a-rational-geographical-nomenclature/
+=item * https://archive.org/details/newharmonycommu00inlock
 
 =back
 
 =cut
 
 # These tables define the letters that the numbers will be transliterated into.
-#                   0  1 2 3 4 5 6 7  8  9
-my @vowels     = qw(ou a e i o u y ee ei ie); 
-my @consonants = qw(t  b d f k l m n  p  r);
+#                        0  1 2 3 4 5 6 7  8  9
+my @latitude_chars  = qw(ou a e i o u y ee ei ie);
+my @longitude_chars = qw(t  b d f k l m n  p  r);
 
 # Allows us to detect when to insert the "sign consonant" for negative 
 # lats and lons.
 my %vowel;
-@vowel{@vowels} = (); 
+@vowel{@latitude_chars} = (); 
 
 =head1 EXPORT
 
@@ -127,19 +126,15 @@ are positive, west longitudes are negative. Trailing E/W and N/S are converted
 into the appropriate sign. If you supply both for some reason, trailing 
 sign indicators override signs.
 
-Returns both alternatives for the name (see L<SCHEME>).
-
 =cut
 
 sub to_whitwell {
      my($lat, $lon) = @_;
-     return ( _vowel_build($lat)     . ' ' . _consonant_build($lon),
-              _consonant_build($lat) . ' ' . _vowel_build($lon)
-     );
+     return _latitude_build($lat)     . ' ' . _longitude_build($lon);
 }
 
-sub _vowel_build     { _gen(shift, [\@vowels, \@consonants], 's') }
-sub _consonant_build { _gen(shift, [\@consonants, \@vowels], 'v') }
+sub _latitude_build  { _gen(shift, [\@latitude_chars, \@longitude_chars], 's') }
+sub _longitude_build { _gen(shift, [\@longitude_chars, \@latitude_chars], 'v') }
 
 sub _gen {
     # The coordinate, the letter lists, and the appropriate sign consonant.
@@ -172,7 +167,7 @@ sub _gen {
         my $letter = $lists->[$list]->[$digit];
         ### "$letter -> $digit"
 
-        # Decide whether to insert a sign consonant.        
+        # Decide whether to insert a sign consonant.
         if (exists $vowel{$letter} and $is_negative and not $signed) {
             # If negative, we have a vowel, and we haven't inserted the sign
             # consonant yet, insert it.
@@ -190,7 +185,7 @@ sub _gen {
 
 sub _two_decimal {
     my ($coord) = @_;
-    
+
     # Discard non-digits except for a decimal point.
     $coord =~ s/[^\d\.]//g;
 
@@ -261,14 +256,13 @@ sub from_whitwell {
     my $lon = $value;
 
     return ($lat, $lon);
-    
 }
 
 sub _coord_for {
     my($original) = my($string) = @_;
 
     # Determine if the string starts in the vowel table or the consonant table.
-    my @tables  = (\@consonants, \@vowels);
+    my @tables  = (\@longitude_chars, \@latitude_chars);
     my $vowel_found;
     my $current = ($string =~ /^[aeiouy]/) || 0;
 
@@ -280,7 +274,7 @@ sub _coord_for {
 
   PARSE:
     while ($string) {
-        # If we need to look for the sign character, 
+        # If we need to look for the sign character,
         # do so. Since we've allowed names to start in either table
         # as seems to have been the historical precedent (yes, someone
         # actually did use this at least once for a real placename),
