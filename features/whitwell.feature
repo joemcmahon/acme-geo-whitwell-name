@@ -9,7 +9,7 @@ Feature: Test Acme::Geo::Whitwell conversions
     Scenario: Check names match the Whitwell standard
       Given coordinates <latitude> and <longitude>
       When we convert them
-      Then we get <name1> and <name2>
+      Then we get "<name1>" and "<name2>"
       And the names are different
       And  the names have two parts
       Examples:
